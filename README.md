@@ -28,6 +28,46 @@ e.g
    context.Clients.Client(userId).displayStatus("sending b from hub to specific client..");
 ```
 
+5. Register hub to startup.cs
+```c#
+   //register signalR for mapping custom id to connection
+            GlobalHost.DependencyResolver.Register(typeof(IUserIdProvider), () => new CustomUserIdProvider());
+            app.MapSignalR();
+```
+6. inherit hub class to use. check documentation
+6. Completed server side configuration
+
+## Client side documentation
+
+1. Connect to hub
+```c#
+    var notificationHub = $.connection.notificationHub;
+
+```
+2. to send query string . do
+```c#
+  hub.qs = { 'id': id };
+```
+#### 3. invoking client from server side hub. 
+
+e.g server side
+```c#
+
+ public void notify(string userId)
+        {
+        
+        }
+```
+
+
+e.g client side
+```javascript
+  notificationHub.client.notify = function (message) {
+  //things to do here. message = server side parameter. which is userId
+  
+  }
+```
+
 
 
 
